@@ -376,6 +376,14 @@ def base_com_height(
     # Compute the L2 squared penalty
     return torch.abs(asset.data.root_pos_w[:, 2] - adjusted_target_height)
 
+def robot_base_height(
+    env: ManagerBasedRLEnv,
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+):
+    """Return robot base height in world frame (z position)."""
+    asset = env.scene[asset_cfg.name]
+    return asset.data.root_pos_w[:, 2].unsqueeze(1)
+
 def track_base_height_command(
     env: ManagerBasedRLEnv,
     command_name: str,
@@ -397,14 +405,6 @@ def track_base_height_command(
     # L2 exponential kernel (다른 보상과 동일하게 exp 형식도 가능)
     return torch.exp(-((base_height - target_height) ** 2) / (2 * std**2))
 
-def robot_base_height(
-    env: ManagerBasedRLEnv,
-    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
-):
-    """Return robot base height in world frame (z position)."""
-    asset = env.scene[asset_cfg.name]
-    return asset.data.root_pos_w[:, 2].unsqueeze(1)
-
 def base_height_error(
     env: ManagerBasedRLEnv,
     command_name: str,
@@ -424,6 +424,8 @@ def base_height_error(
 
     # L2 kernel
     return torch.abs(base_height - target_height)
+
+
 
 class GaitReward(ManagerTermBase):
     def __init__(self, cfg: RewardTermCfg, env: ManagerBasedRLEnv):

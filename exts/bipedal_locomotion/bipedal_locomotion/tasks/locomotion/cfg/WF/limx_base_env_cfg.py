@@ -99,8 +99,8 @@ class CommandsCfg:
     )
     base_height = UniformHeightCommandCfg(
         asset_name="robot",
-        ranges={"height": (0.6, 1.0)},
-        resampling_time_range=(0.5, 2.0)
+        ranges={"height": (0.3, 0.9)},
+        resampling_time_range=(1.0, 3.0)
     )
 
 
@@ -112,7 +112,7 @@ class ActionsCfg:
         asset_name="robot",
         joint_names=["hip_L_Joint", "hip_R_Joint", "knee_L_Joint", "knee_R_Joint"],
         # joint_names=["abad_L_Joint", "abad_R_Joint", "hip_L_Joint", "hip_R_Joint", "knee_L_Joint", "knee_R_Joint"],
-        scale=1.0, # 0.25
+        scale=10.0, # 0.25
         use_default_offset=True,
     )
     
@@ -496,16 +496,16 @@ class RewardsCfg:
 
     rew_base_height = RewTerm(
         func=mdp.track_base_height_command,
-        weight=2.0,
+        weight=1.0,
         params={
             "command_name": "base_height",
-            "std": 0.1,
+            "std": 0.02,
         },
     )
     
     pen_base_height_error = RewTerm(
         func=mdp.base_height_error,
-        weight=-1.0,
+        weight=-10.0,
         params={
             "command_name": "base_height",
         },

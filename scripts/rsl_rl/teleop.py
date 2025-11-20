@@ -155,6 +155,10 @@ def main():
     while simulation_app.is_running():
         rclpy.spin_once(cmd_vel_node, timeout_sec=0.0)  # 최신 cmd_vel 업데이트
 
+        asset = env.unwrapped.scene["robot"]
+        base_height = asset.data.root_pos_w[:, 2]
+        print("Base height:", base_height)
+
         with torch.inference_mode():
             # 기존 obs, obs_history 처리
             est = encoder(obs_history)
@@ -163,7 +167,7 @@ def main():
             commands[..., 0] = cmd_vel_node.cmd_vel_linear_x   # x방향
             commands[..., 1] = cmd_vel_node.cmd_vel_linear_y   # y방향
             commands[..., 2] = cmd_vel_node.cmd_vel_angular_z  # yaw
-            commands[..., 3] = 0.5
+            commands[..., 3] = -50.0
 
             actions = policy(torch.cat((est, obs, commands), dim=-1).detach())
 
