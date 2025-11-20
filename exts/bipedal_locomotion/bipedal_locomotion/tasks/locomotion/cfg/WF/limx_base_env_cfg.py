@@ -99,7 +99,7 @@ class CommandsCfg:
     )
     base_height = UniformHeightCommandCfg(
         asset_name="robot",
-        ranges={"height": (0.3, 0.9)},
+        ranges={"height": (0.5, 0.8)},
         resampling_time_range=(1.0, 3.0)
     )
 
@@ -137,6 +137,12 @@ class ObservarionsCfg:
         params={"command_name": "base_height"},
         )
 
+        height_error_obs = ObsTerm(
+            func=mdp.base_height_error,   # 이미 정의한 함수 사용
+            params={"command_name": "base_height"},
+            scale=10.0,     # 중요!
+        )
+
         # robot base measurements
         base_ang_vel = ObsTerm(func=mdp.base_ang_vel, noise=GaussianNoise(mean=0.0, std=0.05),clip=(-100.0, 100.0),scale=0.25,)
         proj_gravity = ObsTerm(func=mdp.projected_gravity, noise=GaussianNoise(mean=0.0, std=0.025),clip=(-100.0, 100.0),scale=1.0,)
@@ -162,6 +168,12 @@ class ObservarionsCfg:
         height_command = ObsTerm(
         func=mdp.generated_commands,
         params={"command_name": "base_height"},
+        )
+
+        height_error_obs = ObsTerm(
+            func=mdp.base_height_error,   # 이미 정의한 함수 사용
+            params={"command_name": "base_height"},
+            scale=10.0,     # 중요!
         )
 
         # robot base measurements
@@ -191,6 +203,12 @@ class ObservarionsCfg:
         height_command = ObsTerm(
         func=mdp.generated_commands,
         params={"command_name": "base_height"},
+        )
+
+        height_error_obs = ObsTerm(
+            func=mdp.base_height_error,   # 이미 정의한 함수 사용
+            params={"command_name": "base_height"},
+            scale=10.0,     # 중요!
         )
 
         # robot base measurements

@@ -167,7 +167,7 @@ def main():
             commands[..., 0] = cmd_vel_node.cmd_vel_linear_x   # x방향
             commands[..., 1] = cmd_vel_node.cmd_vel_linear_y   # y방향
             commands[..., 2] = cmd_vel_node.cmd_vel_angular_z  # yaw
-            commands[..., 3] = -50.0
+            commands[..., 3] = -15.0
 
             actions = policy(torch.cat((est, obs, commands), dim=-1).detach())
 
