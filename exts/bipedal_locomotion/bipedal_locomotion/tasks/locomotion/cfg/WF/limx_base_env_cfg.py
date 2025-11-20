@@ -122,7 +122,8 @@ class ActionsCfg:
         scale = 10, # 10 0.5
     )
 
-
+def height_error_obs_func(env):
+    return mdp.base_height_error(env, "base_height").unsqueeze(-1)
 @configclass
 class ObservarionsCfg:
     """Observation specifications for the MDP"""
@@ -138,9 +139,9 @@ class ObservarionsCfg:
         )
 
         height_error_obs = ObsTerm(
-            func=mdp.base_height_error,   # 이미 정의한 함수 사용
-            params={"command_name": "base_height"},
-            scale=10.0,     # 중요!
+            func=height_error_obs_func,
+            params={},
+            scale=10.0,
         )
 
         # robot base measurements
@@ -171,9 +172,9 @@ class ObservarionsCfg:
         )
 
         height_error_obs = ObsTerm(
-            func=mdp.base_height_error,   # 이미 정의한 함수 사용
-            params={"command_name": "base_height"},
-            scale=10.0,     # 중요!
+            func=height_error_obs_func,
+            params={},
+            scale=10.0,
         )
 
         # robot base measurements
@@ -206,9 +207,9 @@ class ObservarionsCfg:
         )
 
         height_error_obs = ObsTerm(
-            func=mdp.base_height_error,   # 이미 정의한 함수 사용
-            params={"command_name": "base_height"},
-            scale=10.0,     # 중요!
+            func=height_error_obs_func,
+            params={},
+            scale=10.0,
         )
 
         # robot base measurements
