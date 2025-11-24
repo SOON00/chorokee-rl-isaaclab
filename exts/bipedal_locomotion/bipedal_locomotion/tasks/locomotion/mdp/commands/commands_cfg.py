@@ -38,7 +38,7 @@ from dataclasses import field
 @configclass
 class UniformHeightCommandCfg(CommandTermCfg):
     asset_name: str = MISSING
-    resampling_time_range: tuple[float, float] = (0.5, 2.0)
-    ranges: dict = field(default_factory=lambda: {"height": (0.6, 1.0)})
+    resampling_time_range: tuple[float, float] = (9999.0, 9999.0)
+    ranges: dict = field(default_factory=lambda: {"height": (0.6, 0.8)})
     class_type: type = UniformHeightCommand
     command_dim: int = 1

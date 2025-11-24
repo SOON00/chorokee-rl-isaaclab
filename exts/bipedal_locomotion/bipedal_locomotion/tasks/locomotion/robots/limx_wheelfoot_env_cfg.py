@@ -41,7 +41,7 @@ class WFBaseEnvCfg(WFEnvCfg):
             joint_names=["hip_L_Joint", "hip_R_Joint", "knee_L_Joint", "knee_R_Joint"],  # 필수
             hip_joint_names=["hip_L_Joint", "hip_R_Joint"],
             knee_joint_names=["knee_L_Joint", "knee_R_Joint"],
-            kp_height=0.5,
+            kp_height=10.0,
         )
 
 

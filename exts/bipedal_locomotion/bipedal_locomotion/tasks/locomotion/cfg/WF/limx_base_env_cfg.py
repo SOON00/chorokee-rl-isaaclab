@@ -93,14 +93,15 @@ class CommandsCfg:
         debug_vis=True,
         resampling_time_range=(3.0, 15.0),
         ranges=mdp.UniformVelocityCommandCfg.Ranges(
+            # lin_vel_x=(0.0, 0.0), lin_vel_y=(0.0, 0.0), ang_vel_z=(-math.pi, math.pi), heading=(-math.pi, math.pi)
             lin_vel_x=(-0.7, 0.7), lin_vel_y=(0.0, 0.0), ang_vel_z=(-math.pi, math.pi), heading=(-math.pi, math.pi)
             # lin_vel_x=(-0.7, 0.7), lin_vel_y=(-0.5, 0.5), ang_vel_z=(-math.pi, math.pi), heading=(-math.pi, math.pi)
         ),
     )
     base_height = UniformHeightCommandCfg(
         asset_name="robot",
-        ranges={"height": (0.5, 0.8)},
-        resampling_time_range=(1.0, 3.0)
+        ranges={"height": (0.6, 0.8)},
+        resampling_time_range=(9999.0, 9999.0)
     )
 
 
@@ -112,7 +113,7 @@ class ActionsCfg:
         asset_name="robot",
         joint_names=["hip_L_Joint", "hip_R_Joint", "knee_L_Joint", "knee_R_Joint"],
         # joint_names=["abad_L_Joint", "abad_R_Joint", "hip_L_Joint", "hip_R_Joint", "knee_L_Joint", "knee_R_Joint"],
-        scale=10.0, # 0.25
+        scale=0.25, # 0.25
         use_default_offset=True,
     )
     
@@ -141,7 +142,7 @@ class ObservarionsCfg:
         height_error_obs = ObsTerm(
             func=height_error_obs_func,
             params={},
-            scale=10.0,
+            scale=5.0,
         )
 
         # robot base measurements
@@ -174,7 +175,7 @@ class ObservarionsCfg:
         height_error_obs = ObsTerm(
             func=height_error_obs_func,
             params={},
-            scale=10.0,
+            scale=5.0,
         )
 
         # robot base measurements
@@ -209,7 +210,7 @@ class ObservarionsCfg:
         height_error_obs = ObsTerm(
             func=height_error_obs_func,
             params={},
-            scale=10.0,
+            scale=5.0,
         )
 
         # robot base measurements
@@ -440,7 +441,7 @@ class RewardsCfg:
     # )
 
     # penalizations
-    pen_lin_vel_z = RewTerm(func=mdp.lin_vel_z_l2, weight=-0.3)
+    pen_lin_vel_z = RewTerm(func=mdp.lin_vel_z_l2, weight=-3.0) #0.3
     pen_ang_vel_xy = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.3)
     pen_joint_torque = RewTerm(func=mdp.joint_torques_l2, weight=-0.00016)
     pen_joint_accel = RewTerm(func=mdp.joint_acc_l2, weight=-1.5e-7)
