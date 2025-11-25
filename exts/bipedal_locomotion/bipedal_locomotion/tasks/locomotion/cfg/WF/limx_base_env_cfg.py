@@ -100,7 +100,7 @@ class CommandsCfg:
     )
     base_height = UniformHeightCommandCfg(
         asset_name="robot",
-        ranges={"height": (0.6, 0.8)},
+        ranges={"height": (0.5, 1.0)},
         resampling_time_range=(9999.0, 9999.0)
     )
 
@@ -519,7 +519,7 @@ class RewardsCfg:
         weight=1.0,
         params={
             "command_name": "base_height",
-            "std": 0.02,
+            "std": 0.01,
         },
     )
     
